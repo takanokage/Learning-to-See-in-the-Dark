@@ -10,6 +10,7 @@ import pdb
 import rawpy
 import glob
 
+from tensorflow.python.framework import graph_io
 
 input_dir = './dataset/Sony/short/'
 gt_dir = './dataset/Sony/long/'
@@ -130,6 +131,8 @@ if ckpt:
     
 if not os.path.isdir(result_dir + 'final/'):
     os.makedirs(result_dir + 'final/')
+
+graph_io.write_graph(sess.graph, './', 'test_Sony_graph.pb', as_text=False)
 
 for test_id in test_ids:
     #test the first image in each sequence
